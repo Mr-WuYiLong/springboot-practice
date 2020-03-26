@@ -50,16 +50,4 @@ public class LoginController {
         subject.logout();
         return new Response(200,"退出成功",null);
     }
-
-
-    @GetMapping("/query")
-    public Response query() {
-        return new Response(200,"你拥有查询的权利",null);
-    }
-
-    @RequiresRoles(value = "admin")
-    @PostMapping("/add")
-    public Response add() {
-        return new Response(200,"你拥有添加的权利",null);
-    }
 }
