@@ -31,12 +31,12 @@ public class UserController {
 
     @RequiresPermissions("/user/page")
     @GetMapping("/page")
-    public Response<User> getUserPage(@RequestParam(value = "pageNum",defaultValue = "1")  Integer pageNum,
+    public Response<User> getUserPage(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        Pageable pageable = PageRequest.of(pageNum-1, pageSize, sort);
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
         Page<User> userPage = userDao.findAll(pageable);
-        return new Response(200,"操作成功",userPage);
+        return new Response(200, "操作成功", userPage);
     }
 
 }

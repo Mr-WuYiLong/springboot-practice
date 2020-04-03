@@ -21,8 +21,8 @@ public class RedisUtil {
     private RedisTemplate<String, Serializable> redisTemplate;
 
 
-    public void  set(String key,String value){
-        redisTemplate.opsForValue().set(key,value);
+    public void set(String key, String value) {
+        redisTemplate.opsForValue().set(key, value);
     }
 
     public String get(String key) {

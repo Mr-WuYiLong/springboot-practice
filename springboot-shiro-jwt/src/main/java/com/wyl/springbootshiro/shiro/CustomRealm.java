@@ -55,20 +55,20 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.info("**************authenticationToken->{}", authenticationToken);
-        if(authenticationToken.getPrincipal() == null) {
+        if (authenticationToken.getPrincipal() == null) {
             return null;
         }
-       String token = authenticationToken.getPrincipal().toString();
+        String token = authenticationToken.getPrincipal().toString();
         // 获得用户名
         String username = JwtUtil.validateToken(token);
         // token异常
-        if(StringUtils.isBlank(username)) {
-           throw  new InvalidTokenException();
+        if (StringUtils.isBlank(username)) {
+            throw new InvalidTokenException();
         }
 
         User user = userDao.findByUsername(username);
         // 账户异常
-        if(user == null) {
+        if (user == null) {
             throw new UnknownAccountException();
         }
 
@@ -81,7 +81,7 @@ public class CustomRealm extends AuthorizingRealm {
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        log.info("**********principalCollection->{}",principalCollection);
+        log.info("**********principalCollection->{}", principalCollection);
         // 获得用户名
         String username = principalCollection.getPrimaryPrincipal().toString();
 //        String username = JwtUtil.validateToken(token);
@@ -98,7 +98,7 @@ public class CustomRealm extends AuthorizingRealm {
                 .map(Permission::getAction)
                 .forEach(simpleAuthorizationInfo::addStringPermission);
 
-        log.info("*********返回授权结果->{}",JSONUtil.toJsonStr(simpleAuthorizationInfo));
+        log.info("*********返回授权结果->{}", JSONUtil.toJsonStr(simpleAuthorizationInfo));
         return simpleAuthorizationInfo;
 
     }

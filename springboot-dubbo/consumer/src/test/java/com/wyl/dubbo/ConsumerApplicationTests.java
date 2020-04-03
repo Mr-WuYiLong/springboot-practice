@@ -15,10 +15,11 @@ class ConsumerApplicationTests {
 
     @Reference
     private UserService userService;
+
     @Test
     void contextLoads() {
         List<User> userList = userService.getUserList();
-        log.info("*******{}",userList);
+        log.info("*******{}", userList);
     }
 
 }

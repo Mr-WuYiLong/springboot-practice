@@ -9,7 +9,8 @@ package com.wyl.springbootshiro.exception;
  **/
 public class UnknowUsenameAndPasswordException extends RuntimeException {
 
-    public UnknowUsenameAndPasswordException(){}
+    public UnknowUsenameAndPasswordException() {
+    }
 
     public UnknowUsenameAndPasswordException(String message) {
         super(message);

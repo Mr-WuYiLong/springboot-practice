@@ -30,9 +30,9 @@ class SpringbootRedisApplicationTests {
     @Test
     void contextLoads() {
 //        List<Object> exec = redisTemplate.exec();
-        redisUtil.set("password","123456");
+        redisUtil.set("password", "123456");
 
-        log.info("*********{}",redisUtil.get("password"));
+        log.info("*********{}", redisUtil.get("password"));
 //        log.info("*********{}",exec);
 //        long second1 = DateUtil.currentSeconds();
 //
@@ -78,6 +78,6 @@ class SpringbootRedisApplicationTests {
 //        },redisTemplate.getStringSerializer());
 //
 //
-  }
+    }
 
 }

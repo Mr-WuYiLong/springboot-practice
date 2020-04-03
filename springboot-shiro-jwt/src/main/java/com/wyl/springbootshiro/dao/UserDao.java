@@ -13,10 +13,11 @@ import org.springframework.stereotype.Repository;
  * @Version 1.0.0
  **/
 @Repository
-public interface UserDao extends JpaRepository<User,Integer> {
+public interface UserDao extends JpaRepository<User, Integer> {
 
     /**
      * 根据用户名查找对应的用户
+     *
      * @param username
      * @return
      */

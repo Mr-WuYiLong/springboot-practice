@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @Version 1.0.0
  **/
 @Repository
-public interface PermissionDao extends JpaRepository<Permission,Integer> {
+public interface PermissionDao extends JpaRepository<Permission, Integer> {
 
 
 }

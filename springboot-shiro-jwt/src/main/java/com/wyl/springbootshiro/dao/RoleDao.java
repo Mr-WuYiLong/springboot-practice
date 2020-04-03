@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * @Version 1.0.0
  **/
 @Repository
-public interface RoleDao extends JpaRepository<Role,Integer> {
+public interface RoleDao extends JpaRepository<Role, Integer> {
 }

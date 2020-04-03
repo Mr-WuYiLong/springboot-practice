@@ -17,10 +17,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @SpringBootTest
 public class PublishTest {
     @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Test
     public void publish() {
-        redisTemplate.convertAndSend("user",new User("张三","123456"));
+        redisTemplate.convertAndSend("user", new User("张三", "123456"));
     }
 }

@@ -21,43 +21,47 @@ public class GlobalException {
 
     /**
      * 处理用户名密码错误的异常
+     *
      * @return
      */
     @ExceptionHandler({UnknowUsenameAndPasswordException.class})
     @ResponseStatus
     public ResponseError unknowUsenameAndPasswordException() {
-        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(),"用户名或密码错误");
+        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "用户名或密码错误");
     }
 
     /**
      * 处理权限不足的异常
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(AuthorizationException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseError authorizationException(AuthorizationException e) {
-        return new ResponseError(HttpStatus.FORBIDDEN.value(),"你没有权限访问");
+        return new ResponseError(HttpStatus.FORBIDDEN.value(), "你没有权限访问");
     }
 
     /**
      * 处理token的异常
+     *
      * @return
      */
     @ExceptionHandler(InvalidTokenException.class)
     @ResponseStatus
     public ResponseError invalidTokenException() {
-        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(),"不合法的token");
+        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "不合法的token");
     }
 
     /**
      * 处理用户账户异常
+     *
      * @return
      */
     @ExceptionHandler(UnknownAccountException.class)
     @ResponseStatus
     public ResponseError unknownAccountException() {
-        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(),"账户异常");
+        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "账户异常");
     }
 
 

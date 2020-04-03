@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @Version 1.0.0
  **/
 @Slf4j
-public class UserReceiver  {
+public class UserReceiver {
 
     public void onMessage(Object message) {
         log.info("****来自->{}-频道**发送的消息->{}", message);

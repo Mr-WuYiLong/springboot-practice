@@ -28,8 +28,8 @@ import java.util.Map;
 public class ErrorController {
 
     @GetMapping("/invalidToken")
-    public ResponseError  invalidTokenException() {
-         throw new InvalidTokenException();
+    public ResponseError invalidTokenException() {
+        throw new InvalidTokenException();
     }
 
     @GetMapping("/unknownAccount")

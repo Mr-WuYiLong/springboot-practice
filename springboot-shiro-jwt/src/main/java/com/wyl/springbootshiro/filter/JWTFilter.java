@@ -36,18 +36,18 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         response.setCharacterEncoding("utf-8");
         response.setContentType("application/json");
         ResponseError responseError = new ResponseError();
-        if(isLoginAttempt(request,response)) {
+        if (isLoginAttempt(request, response)) {
             try {
                 executeLogin(request, response);
-                return  true;
+                return true;
             } catch (Exception e) {
                 log.info("****InvalidTokenException****");
-               if(e instanceof InvalidTokenException) {
-                   request.getRequestDispatcher("/invalidToken").forward(request,response);
-               }else if(e instanceof UnknownAccountException) {
-                   request.getRequestDispatcher("/unknownAccount").forward(request,response);
-               }
-               return  true;
+                if (e instanceof InvalidTokenException) {
+                    request.getRequestDispatcher("/invalidToken").forward(request, response);
+                } else if (e instanceof UnknownAccountException) {
+                    request.getRequestDispatcher("/unknownAccount").forward(request, response);
+                }
+                return true;
             }
         }
 
@@ -61,13 +61,13 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     // 执行登录
     @Override
-    protected boolean executeLogin(ServletRequest request, ServletResponse response)  {
+    protected boolean executeLogin(ServletRequest request, ServletResponse response) {
         log.info("************进入executeLogin*******");
         String token = ((HttpServletRequest) request).getHeader("Authorization");
 
 
         JWTToken jwtToken = new JWTToken(token);
-        getSubject(request,response).login(jwtToken);
+        getSubject(request, response).login(jwtToken);
         return true;
     }
 

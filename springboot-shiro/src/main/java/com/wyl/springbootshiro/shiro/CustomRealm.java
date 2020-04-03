@@ -46,18 +46,18 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.info("**************authenticationToken->{}", JSONUtil.toJsonStr(authenticationToken));
-        if(authenticationToken.getPrincipal() == null) {
+        if (authenticationToken.getPrincipal() == null) {
             return null;
         }
         // 获得用户名
         String username = authenticationToken.getPrincipal().toString();
         User user = userDao.findByUsername(username);
-        if(user == null) {
+        if (user == null) {
             throw new UnknownAccountException("用户名或密码错误");
         }
 
         // 认证信息
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(), ByteSource.Util.bytes("wuyilong"),getName());
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), ByteSource.Util.bytes("wuyilong"), getName());
         log.info("**************返回认证结果->{}", JSONUtil.toJsonStr(simpleAuthenticationInfo));
         return simpleAuthenticationInfo;
     }
@@ -65,7 +65,7 @@ public class CustomRealm extends AuthorizingRealm {
     // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        log.info("**********principalCollection->{}",principalCollection);
+        log.info("**********principalCollection->{}", principalCollection);
         // 获得用户名
         String username = principalCollection.getPrimaryPrincipal().toString();
         User user = userDao.findByUsername(username);
@@ -81,7 +81,7 @@ public class CustomRealm extends AuthorizingRealm {
                 .map(Permission::getAction)
                 .forEach(simpleAuthorizationInfo::addStringPermission);
 
-        log.info("*********返回授权结果->{}",JSONUtil.toJsonStr(simpleAuthorizationInfo));
+        log.info("*********返回授权结果->{}", JSONUtil.toJsonStr(simpleAuthorizationInfo));
         return simpleAuthorizationInfo;
 
     }

@@ -30,24 +30,24 @@ public class LoginController {
     @GetMapping("/notLogin")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Response notLogin() {
-        return new Response(HttpStatus.UNAUTHORIZED.value(),"你没有访问凭证",null);
+        return new Response(HttpStatus.UNAUTHORIZED.value(), "你没有访问凭证", null);
     }
 
     @PostMapping("/login")
     public Response login(@RequestBody User user) {
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUsername(),user.getPassword());
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         Subject subject = SecurityUtils.getSubject();
         subject.login(usernamePasswordToken);
-        if(!subject.isAuthenticated()) {
+        if (!subject.isAuthenticated()) {
             throw new AuthenticationException("认证失败");
         }
-        return new Response(200,"登录成功",user);
+        return new Response(200, "登录成功", user);
     }
 
     @GetMapping("/logout")
     public Response logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return new Response(200,"退出成功",null);
+        return new Response(200, "退出成功", null);
     }
 }

@@ -32,19 +32,19 @@ public class LoginController {
     @PostMapping("/login")
     public Response login(@RequestBody User user) {
         User byUser = userDao.findByUsername(user.getUsername());
-        if(byUser == null || !byUser.getPassword().equals(user.getPassword())) {
+        if (byUser == null || !byUser.getPassword().equals(user.getPassword())) {
             throw new UnknowUsenameAndPasswordException();
         }
         // 生成token
         String token = JwtUtil.generateToken(user.getUsername());
-        return new Response(200,"登录成功",token);
+        return new Response(200, "登录成功", token);
     }
 
     @GetMapping("/logout")
     public Response logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return new Response(200,"退出成功",null);
+        return new Response(200, "退出成功", null);
     }
 
 

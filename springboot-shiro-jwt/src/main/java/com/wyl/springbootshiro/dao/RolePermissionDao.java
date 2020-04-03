@@ -15,10 +15,11 @@ import java.util.List;
  * @Version 1.0.0
  **/
 @Repository
-public interface RolePermissionDao extends JpaRepository<RolePermission,Integer> {
+public interface RolePermissionDao extends JpaRepository<RolePermission, Integer> {
 
     /**
      * 根据角色名称查找对应的权限
+     *
      * @param roleId
      * @return
      */

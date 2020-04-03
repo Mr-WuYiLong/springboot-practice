@@ -26,6 +26,7 @@ public class ShiroConfig {
 
     /**
      * 把自定义的CustomRealm注入到spring容器中
+     *
      * @return
      */
     @Bean
@@ -38,6 +39,7 @@ public class ShiroConfig {
 
     /**
      * 注入securityManager
+     *
      * @return
      */
     @Bean
@@ -73,9 +75,10 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         // 开放接口
-        filterChainDefinitionMap.put("/login","anon");;
+        filterChainDefinitionMap.put("/login", "anon");
+        ;
         // 其余的需要认证
-        filterChainDefinitionMap.put("/**","authc");
+        filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
 

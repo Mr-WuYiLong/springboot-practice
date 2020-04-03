@@ -10,7 +10,7 @@ import org.apache.shiro.authc.AuthenticationException;
  */
 public class InvalidTokenException extends AuthenticationException {
 
-    public InvalidTokenException(){
+    public InvalidTokenException() {
 
     }
 

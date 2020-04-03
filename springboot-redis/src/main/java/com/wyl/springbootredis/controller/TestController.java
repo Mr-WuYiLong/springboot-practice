@@ -33,13 +33,13 @@ public class TestController {
 
 
         long seconds = DateUtil.currentSeconds();
-        for (int i = 0; i <100 ; i++) {
-            redisTemplate.opsForValue().get("name"+i);
+        for (int i = 0; i < 100; i++) {
+            redisTemplate.opsForValue().get("name" + i);
         }
 
 //        List<RedisClientInfo> clientList = redisTemplate.getClientList();
 //        Object name = redisTemplate.opsForValue().get("name");
 
-        log.info("**********{}******",DateUtil.currentSeconds()-seconds);
+        log.info("**********{}******", DateUtil.currentSeconds() - seconds);
     }
 }

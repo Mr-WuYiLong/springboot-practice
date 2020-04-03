@@ -1,6 +1,7 @@
 package com.wyl.springbootshiro.shiro;
 
 //import com.wyl.springbootshiro.filter.JWTFilter;
+
 import com.wyl.springbootshiro.filter.JWTFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -35,6 +36,7 @@ public class ShiroConfig {
 
     /**
      * 把自定义的CustomRealm注入到spring容器中
+     *
      * @return
      */
     @Bean
@@ -47,6 +49,7 @@ public class ShiroConfig {
 
     /**
      * 注入securityManager
+     *
      * @return
      */
     @Bean
@@ -73,7 +76,7 @@ public class ShiroConfig {
 //        return credentialsMatcher;
 //    }
 
-     //注入过滤器
+    //注入过滤器
 //    @Bean
 //    public JWTFilter jwtFilter() {
 //        return new JWTFilter();
@@ -91,15 +94,15 @@ public class ShiroConfig {
         // 没有权限时进行跳转(ps:在没有使用注解的情况下能自动捕获异常，并跳转到该指定的路径)
         //shiroFilterFactoryBean.setUnauthorizedUrl("/unAuthorized");
         Map<String, Filter> objectObjectLinkedHashMap = new LinkedHashMap<>();
-        objectObjectLinkedHashMap.put("jwt",new JWTFilter());
+        objectObjectLinkedHashMap.put("jwt", new JWTFilter());
         // 设置拦截器
         // 为什么不用HashMap？因为HashMap是无序的，会导致部分路径无法拦截，时有时无
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 开放登录
-        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/login", "anon");
         // 其余的需要进过滤器
         shiroFilterFactoryBean.setFilters(objectObjectLinkedHashMap);
-        filterChainDefinitionMap.put("/**","jwt");
+        filterChainDefinitionMap.put("/**", "jwt");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
@@ -109,6 +112,7 @@ public class ShiroConfig {
     /**
      * 开启shiro aop注解支持.
      * 使用代理方式;所以需要开启代码支持;
+     *
      * @param securityManager
      * @return
      */
