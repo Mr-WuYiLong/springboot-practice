@@ -2,6 +2,7 @@ package com.wyl.provider.service.impl;
 
 import com.wyl.User;
 import com.wyl.provider.service.UserService;
+import org.apache.dubbo.config.annotation.Service;
 
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
  * @DATE 2020-03-26 10:23
  * @Version 1.0.0
  **/
+@Service
 public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserList() {
