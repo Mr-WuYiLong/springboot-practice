@@ -75,6 +75,11 @@ public class FullCity extends Model<FullCity> {
     @TableField("is_revoke")
     private Integer isRevoke;
 
+    /**
+     * 父级编码
+     */
+    private String parentCode;
+
 
     @Override
     public Serializable pkVal() {

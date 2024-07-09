@@ -10,8 +10,9 @@ import java.util.List;
  * @Date 2024/7/4 9:30
  */
 @Data
-public class DictionaryBean {
+public class DictionaryBean{
     private String name;
     private String code;
     private Integer level;
+    private String parentCode;
 }

@@ -13,5 +13,11 @@ public interface DictionaryOperate<T> {
      * 列表
      * @return
      */
-    List<T> list();
+    List<T> list(String key);
+
+    /**
+     * 支持类型
+     * @return
+     */
+    String supportType();
 }
