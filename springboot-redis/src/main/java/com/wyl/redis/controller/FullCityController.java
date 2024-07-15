@@ -1,7 +1,6 @@
 package com.wyl.redis.controller;
 
-import com.wyl.redis.common.ResponseData;
-import com.wyl.redis.entity.FullCity;
+import com.wyl.common.bean.ResponseData;
 import com.wyl.redis.service.FullCityService;
 import com.wyl.redis.vo.FullCityVo;
 import io.swagger.annotations.Api;

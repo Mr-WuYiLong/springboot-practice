@@ -19,8 +19,14 @@ public class DictionaryConst {
     /**省市区**/
     public static final String FULL_CITY = "full-city";
 
+    public static final String SIMPLE_DICTIONARY = "simple-dictionary";
+
     /**省市区-列表**/
     public static final String FULL_CITY_LIST = DIC+FULL_CITY+LIST;
+    /**省市区-树**/
+    public static final String FULL_CITY_TREE = DIC+FULL_CITY+TREE;
+
+
 
 
 

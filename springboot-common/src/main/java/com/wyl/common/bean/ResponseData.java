@@ -1,10 +1,8 @@
-package com.wyl.redis.common;
+package com.wyl.common.bean;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.UUID;
 
 /**
  * @Description 公共的响应消息体
@@ -21,7 +19,7 @@ public class ResponseData<T> {
     @ApiModelProperty(value = "数据")
     private T data;
 
-    public ResponseData(int code,String msg) {
+    private ResponseData(int code,String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -34,6 +32,10 @@ public class ResponseData<T> {
 
     public static <T> ResponseData<T> create(int code,String msg,T data) {
         return new ResponseData<T>(code,msg,data);
+    }
+
+    public static <T> ResponseData<T> create(int code,String msg) {
+        return new ResponseData<T>(code,msg);
     }
 
     public static <T> ResponseData<T> success() {

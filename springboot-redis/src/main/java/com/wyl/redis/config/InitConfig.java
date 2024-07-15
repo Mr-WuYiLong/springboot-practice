@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class InitConfig implements ApplicationRunner {
 
-    @Autowired
-    private FullCityOperate fullCityDicService;
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("****************初始化*************");
