@@ -45,9 +45,10 @@ public class FullCityOperate implements DictionaryOperate {
                 dictionaryBean.setParentCode(m.getParentCode());
                 return dictionaryBean;
             }).collect(Collectors.toList());
-            redisTemplate.opsForValue().set(DictionaryConst.FULL_CITY_LIST,dictionaryBeans);
+            redisTemplate.opsForValue().set(key,dictionaryBeans);
+            return dictionaryBeans;
         }
-        List<DictionaryBean> list = (List<DictionaryBean>)redisTemplate.opsForValue().get(DictionaryConst.FULL_CITY_LIST);
+        List<DictionaryBean> list = (List<DictionaryBean>)redisTemplate.opsForValue().get(key);
         return list;
     }
 
@@ -60,9 +61,10 @@ public class FullCityOperate implements DictionaryOperate {
                 t2.setName(t1.getName());
                 t2.setParentId(t1.getParentCode());
             });
-            redisTemplate.opsForValue().set(DictionaryConst.FULL_CITY_TREE,build);
+            redisTemplate.opsForValue().set(key,build);
+            return build;
         }
-        List<Tree<String>> trees = (List<Tree<String>>)redisTemplate.opsForValue().get(DictionaryConst.FULL_CITY_TREE);
+        List<Tree<String>> trees = (List<Tree<String>>)redisTemplate.opsForValue().get(key);
         return trees;
     }
 

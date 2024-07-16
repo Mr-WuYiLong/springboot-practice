@@ -21,16 +21,23 @@ public interface SimpleDictionaryService extends IService<SimpleDictionary> {
     List<SimpleDictionaryVo> listByParentId(Long parentId);
 
     /**
-     * 根据标识码查询
+     * 根据标识码查询,排除顶级id
      * @param code
      * @return
      */
-    List<SimpleDictionaryVo> listByCode(String code);
+    List<SimpleDictionaryVo> listByCodeNotParent(String code);
 
     /**
      * 查询带有code的字典
      * @return
      */
     List<SimpleDictionaryVo> listParentHasCode();
+
+    /**
+     * 根据code查询
+     * @param code
+     * @return
+     */
+    List<SimpleDictionaryVo> listByCode(String code);
 
 }

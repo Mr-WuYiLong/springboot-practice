@@ -36,7 +36,7 @@ public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMap
     }
 
     @Override
-    public List<SimpleDictionaryVo> listByCode(String code) {
+    public List<SimpleDictionaryVo> listByCodeNotParent(String code) {
         LambdaQueryWrapper<SimpleDictionary> wrapper = Wrappers.lambdaQuery(SimpleDictionary.class);
         wrapper.eq(SimpleDictionary::getCode,code);
         wrapper.ne(SimpleDictionary::getParentId,0);
@@ -53,8 +53,20 @@ public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMap
     public List<SimpleDictionaryVo> listParentHasCode() {
 
         LambdaQueryWrapper<SimpleDictionary> wrapper = Wrappers.lambdaQuery(SimpleDictionary.class);
-        wrapper.isNotNull(SimpleDictionary::getCode);
-        wrapper.ne(SimpleDictionary::getCode,"");
+        wrapper.eq(SimpleDictionary::getParentId,0);
+        List<SimpleDictionary> list = list(wrapper);
+        List<SimpleDictionaryVo> simpleDictionaryVos = list.stream().map(m -> {
+            SimpleDictionaryVo simpleDictionaryVo = new SimpleDictionaryVo();
+            BeanUtil.copyProperties(m, simpleDictionaryVo);
+            return simpleDictionaryVo;
+        }).collect(Collectors.toList());
+        return simpleDictionaryVos;
+    }
+
+    @Override
+    public List<SimpleDictionaryVo> listByCode(String code) {
+        LambdaQueryWrapper<SimpleDictionary> wrapper = Wrappers.lambdaQuery(SimpleDictionary.class);
+        wrapper.eq(SimpleDictionary::getCode,code);
         List<SimpleDictionary> list = list(wrapper);
         List<SimpleDictionaryVo> simpleDictionaryVos = list.stream().map(m -> {
             SimpleDictionaryVo simpleDictionaryVo = new SimpleDictionaryVo();

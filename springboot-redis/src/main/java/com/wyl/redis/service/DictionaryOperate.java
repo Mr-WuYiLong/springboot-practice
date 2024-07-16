@@ -22,7 +22,7 @@ public interface DictionaryOperate {
      * @param key
      * @return
      */
-    List<Tree<String>> tree(String key);
+    <T> List<Tree<T>> tree(String key);
 
     /**
      * 支持类型

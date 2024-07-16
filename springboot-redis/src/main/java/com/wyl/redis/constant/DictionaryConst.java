@@ -26,6 +26,11 @@ public class DictionaryConst {
     /**省市区-树**/
     public static final String FULL_CITY_TREE = DIC+FULL_CITY+TREE;
 
+    /**普通字典-列表**/
+    public static final String SIMPLE_DICTIONARY_LIST = DIC+SIMPLE_DICTIONARY+LIST;
+    /**普通字典-树**/
+    public static final String SIMPLE_DICTIONARY_TREE = DIC+SIMPLE_DICTIONARY+TREE;
+
 
 
 

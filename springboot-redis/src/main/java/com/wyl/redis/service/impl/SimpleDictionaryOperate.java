@@ -2,6 +2,8 @@ package com.wyl.redis.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wyl.redis.bean.DictionaryBean;
@@ -33,10 +35,14 @@ public class SimpleDictionaryOperate implements DictionaryOperate {
     @Autowired
     private SimpleDictionaryService simpleDictionaryService;
 
+    private String getCode(String key) {
+        int num = StrUtil.lastIndexOfIgnoreCase(key, ":");
+        return key.substring(num+1);
+    }
     @Override
     public List list(String key) {
         if(!redisTemplate.hasKey(key)) {
-            List<SimpleDictionaryVo> simpleDictionaryVos = simpleDictionaryService.listByCode(key);
+            List<SimpleDictionaryVo> simpleDictionaryVos = simpleDictionaryService.listByCodeNotParent(getCode(key));
             if(CollUtil.isEmpty(simpleDictionaryVos)) {
                throw new BusinessException("字典的key不存在");
             }
@@ -47,16 +53,36 @@ public class SimpleDictionaryOperate implements DictionaryOperate {
                 dictionaryBean.setCode(m.getCode());
                 return dictionaryBean;
             }).collect(Collectors.toList());
-            redisTemplate.opsForValue().set(DictionaryConst.DIC+DictionaryConst.SIMPLE_DICTIONARY+":"+key, dictionaryBeans);
+            redisTemplate.opsForValue().set(key, dictionaryBeans);
+            return dictionaryBeans;
         }
         List<DictionaryBean> list = (List<DictionaryBean>)redisTemplate.opsForValue().get(key);
         return list;
     }
 
     @Override
-    public List<Tree<String>> tree(String key) {
-        return null;
+    public   List<Tree<Long>> tree(String key) {
+        if(!redisTemplate.hasKey(key)) {
+            List<SimpleDictionaryVo> simpleDictionaryVos = simpleDictionaryService.listByCode(getCode(key));
+            if(CollUtil.isEmpty(simpleDictionaryVos)) {
+                throw new BusinessException("字典的key不存在");
+            }
+
+            List<Tree<Long>> trees = TreeUtil.build(simpleDictionaryVos, 0L, (t1, t2) -> {
+                t2.setId(t1.getId());
+                t2.setParentId(t1.getParentId());
+                t2.setName(t1.getName());
+            });
+
+            if(CollUtil.isNotEmpty(trees.get(0))) {
+                redisTemplate.opsForValue().set(key, trees.get(0).getChildren());
+            }
+            return trees;
+        }
+        List<Tree<Long>> trees = (List<Tree<Long>>)redisTemplate.opsForValue().get(key);
+        return trees;
     }
+
 
     @Override
     public String supportType() {
