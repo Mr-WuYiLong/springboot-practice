@@ -21,12 +21,6 @@ spring:
           username: root
           password: 123456
           type: com.zaxxer.hikari.HikariDataSource
-        star_rock:
-          url: jdbc:mysql://192.168.0.106:9030?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
-          username: starrocks
-          password: Dr.Tech*2023
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          type: com.zaxxer.hikari.HikariDataSource
 
   redis:
     host: 192.168.0.35
