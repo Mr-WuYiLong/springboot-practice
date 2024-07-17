@@ -4,11 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6870f5ea-bc2b-429a-a432-ca7b08a74e9c" name="Default Changelist" comment="" />
+    <list default="true" id="6870f5ea-bc2b-429a-a432-ca7b08a74e9c" name="Default Changelist" comment="fix">
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/controller/DictionaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/controller/DictionaryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/controller/FullCityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/controller/FullCityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/DictionaryOperate.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/DictionaryOperate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/FullCityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/FullCityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/SimpleDictionaryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/SimpleDictionaryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/DictionaryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/DictionaryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/FullCityOperate.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/FullCityOperate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/FullCityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/FullCityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/SimpleDictionaryOperate.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/SimpleDictionaryOperate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/SimpleDictionaryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl/redis/service/impl/SimpleDictionaryServiceImpl.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -24,26 +54,79 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/springboot-redis/src/main/java/com/wyl" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/springboot-redis/src/main/resources/mapper" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\long\git\springboot-merge\springboot-redis\src\main\resources\mapper" />
+      <recent name="E:\long\git\springboot-merge\springboot-redis\src\main\java\com\wyl\redis\mapper" />
+      <recent name="E:\long\git\springboot-merge\springboot-redis\src\main\java\com\wyl\redis\entity" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.wyl.redis.service.impl" />
+      <recent name="com.wyl.redis.service" />
+      <recent name="com.wyl.redis.mapper" />
+      <recent name="com.wyl.redis.entity" />
+      <recent name="com.wyl.redis.controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.RedisApplication (1)">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RedisApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="springboot-redis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.wyl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.wyl.RedisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RedisApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="springboot-redis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.wyl.redis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.wyl.redis.RedisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.RedisApplication (1)" />
+        <item itemvalue="Spring Boot.RedisApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -54,10 +137,103 @@
       <option name="presentableId" value="Default" />
       <updated>1719883638720</updated>
       <workItem from="1719883639969" duration="137000" />
+      <workItem from="1719883867140" duration="9777000" />
+      <workItem from="1719998889441" duration="62647000" />
+      <workItem from="1720581789844" duration="5910000" />
+      <workItem from="1720660383815" duration="46625000" />
     </task>
+    <task id="LOCAL-00001" summary="fix">
+      <created>1719883973403</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719883973403</updated>
+    </task>
+    <task id="LOCAL-00002" summary="redis-init">
+      <created>1719911637682</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719911637682</updated>
+    </task>
+    <task id="LOCAL-00003" summary="spring-redis">
+      <created>1720173083518</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1720173083518</updated>
+    </task>
+    <task id="LOCAL-00004" summary="spring-redis[字典缓存，接口缓存]">
+      <created>1720518071626</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1720518071626</updated>
+    </task>
+    <task id="LOCAL-00005" summary="【redis】-加入普通字典">
+      <created>1721037399153</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1721037399153</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix-【redis】-字典缓存">
+      <created>1721119977329</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1721119977329</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix-【redis】-字典缓存">
+      <created>1721120111085</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1721120111085</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix">
+      <created>1721120477484</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1721120477484</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="redis-init" />
+    <MESSAGE value="spring-redis" />
+    <MESSAGE value="spring-redis[字典缓存，接口缓存]" />
+    <MESSAGE value="【redis】-加入普通字典" />
+    <MESSAGE value="fix-【redis】-字典缓存" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="dickeys" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
