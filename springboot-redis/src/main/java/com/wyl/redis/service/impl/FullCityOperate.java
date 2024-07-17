@@ -2,12 +2,13 @@ package com.wyl.redis.service.impl;
 
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.hutool.core.map.MapUtil;
 import com.wyl.redis.bean.DictionaryBean;
-import com.wyl.redis.bean.TreeBean;
 import com.wyl.redis.constant.DictionaryConst;
 import com.wyl.redis.entity.FullCity;
 import com.wyl.redis.service.DictionaryOperate;
 import com.wyl.redis.service.FullCityService;
+import com.wyl.redis.vo.FullCityVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -66,6 +67,34 @@ public class FullCityOperate implements DictionaryOperate {
         }
         List<Tree<String>> trees = (List<Tree<String>>)redisTemplate.opsForValue().get(key);
         return trees;
+    }
+
+    @Override
+    public String codeNameMap(String key, String code) {
+        if(!redisTemplate.opsForHash().hasKey(key,code)) {
+            FullCityVo fullCityVo = fullCityService.getByCode(code);
+            if(fullCityVo != null) {
+                redisTemplate.opsForHash().putIfAbsent(key,fullCityVo.getCode(),fullCityVo.getName());
+                return fullCityVo.getName();
+            }
+            return null;
+        }
+        String name = (String)redisTemplate.opsForHash().get(key, code);
+        return name;
+    }
+
+    @Override
+    public String nameCodeMap(String key, String name) {
+        if(!redisTemplate.opsForHash().hasKey(key,name)) {
+            FullCityVo fullCityVo = fullCityService.getByFullName(name);
+            if(fullCityVo != null) {
+                redisTemplate.opsForHash().putIfAbsent(key,fullCityVo.getFullName(),fullCityVo.getCode());
+                return fullCityVo.getCode();
+            }
+            return null;
+        }
+        String code = (String)redisTemplate.opsForHash().get(key, name);
+        return code;
     }
 
     @Override

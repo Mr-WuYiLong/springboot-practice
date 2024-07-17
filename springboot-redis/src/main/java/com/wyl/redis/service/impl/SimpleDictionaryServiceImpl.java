@@ -75,4 +75,5 @@ public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMap
         }).collect(Collectors.toList());
         return simpleDictionaryVos;
     }
+
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -83,6 +84,24 @@ public class SimpleDictionaryOperate implements DictionaryOperate {
         return trees;
     }
 
+    @Override
+    public String codeNameMap(String key, String code) {
+        if(!redisTemplate.opsForHash().hasKey(key,code)) {
+            SimpleDictionary simpleDictionary = simpleDictionaryService.getById(code);
+            if(simpleDictionary != null) {
+                redisTemplate.opsForHash().putIfAbsent(key,simpleDictionary.getId().toString(),simpleDictionary.getName());
+                return simpleDictionary.getName();
+            }
+            return null;
+        }
+        String name = (String)redisTemplate.opsForHash().get(key, code);
+        return name;
+    }
+
+    @Override
+    public String nameCodeMap(String key, String name) {
+        return null;
+    }
 
     @Override
     public String supportType() {

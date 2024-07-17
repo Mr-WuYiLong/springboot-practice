@@ -4,19 +4,15 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import com.wyl.redis.entity.FullCity;
 import com.wyl.redis.mapper.FullCityMapper;
 import com.wyl.redis.service.FullCityService;
 import com.wyl.redis.vo.FullCityVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
 * @Description 
@@ -51,20 +47,28 @@ public class FullCityServiceImpl extends ServiceImpl<FullCityMapper, FullCity> i
         return null;
     }
 
-    @Cacheable(value = "cacheString",key = "#areaCode",cacheManager = "redisCacheManager")
     @Override
-    public String cacheString(String areaCode) {
-        String cacheField = String.format("缓存字符串%s",areaCode);
-        return cacheField;
-    }
-
-    @Cacheable(value = "getFullCity",key = "#code",cacheManager = "redisCacheManager",unless = "#result == null")
-    @Override
-    public FullCityVo getFullCity(String code) {
+    public FullCityVo getByCode(String code) {
         LambdaQueryWrapper<FullCity> wrapper = Wrappers.lambdaQuery(FullCity.class);
         wrapper.eq(FullCity::getCode,code);
         FullCity fullCity = getOne(wrapper);
+        if(fullCity == null) {
+            return null;
+        }
         FullCityVo fullCityVo = BeanUtil.copyProperties(fullCity, FullCityVo.class);
+        return fullCityVo;
+    }
+
+    @Override
+    public FullCityVo getByFullName(String fullName) {
+        LambdaQueryWrapper<FullCity> wrapper = Wrappers.lambdaQuery(FullCity.class);
+        wrapper.eq(FullCity::getFullName,fullName);
+        FullCity fullCity = getOne(wrapper);
+        if(fullCity == null) {
+            return null;
+        }
+        FullCityVo fullCityVo = new FullCityVo();
+        BeanUtil.copyProperties(fullCity,fullCityVo);
         return fullCityVo;
     }
 }

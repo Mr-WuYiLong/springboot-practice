@@ -17,17 +17,18 @@ public interface FullCityService extends IService<FullCity> {
     void backFillParentCode();
 
     /**
-     * 缓存字符串
-     * @return
-     */
-    String cacheString(String areaCode);
-
-    /**
      * 根据地区编码查询
      * @param code
      * @return
      */
-    FullCityVo getFullCity(String code);
+    FullCityVo getByCode(String code);
+
+    /**
+     * 根据全名称查询
+     * @param fullName
+     * @return
+     */
+    FullCityVo getByFullName(String fullName);
 
 
 

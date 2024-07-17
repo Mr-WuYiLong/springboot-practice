@@ -3,6 +3,7 @@ package com.wyl.redis.service;
 import cn.hutool.core.lang.tree.Tree;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description
@@ -25,9 +26,23 @@ public interface DictionaryOperate {
     <T> List<Tree<T>> tree(String key);
 
     /**
+     * 根据code获取名称
+     * @return
+     */
+    String codeNameMap(String key,String code);
+
+    /**
+     * 根据code获取名称
+     * @return
+     */
+    String nameCodeMap(String key,String name);
+
+    /**
      * 支持类型
      * @return
      */
     String supportType();
+
+
 
 }

@@ -40,4 +40,5 @@ public interface SimpleDictionaryService extends IService<SimpleDictionary> {
      */
     List<SimpleDictionaryVo> listByCode(String code);
 
+
 }

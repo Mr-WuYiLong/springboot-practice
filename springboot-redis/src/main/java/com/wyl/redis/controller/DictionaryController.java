@@ -42,4 +42,16 @@ public class DictionaryController {
     public ResponseData tree(String key) {
         return ResponseData.successInstance(dictionaryService.tree(key));
     }
+
+    @ApiOperation(value = "根据code获取名称")
+    @GetMapping(value = "codeNameMap")
+    public ResponseData codeNameMap(String key, String code) {
+        return ResponseData.successInstance(dictionaryService.codeNameMap(key,code));
+    }
+
+    @ApiOperation(value = "根据名称获取code")
+    @GetMapping(value = "nameCodeMap")
+    public ResponseData nameCodeMap(String key, String name) {
+        return ResponseData.successInstance(dictionaryService.nameCodeMap(key, name));
+    }
 }

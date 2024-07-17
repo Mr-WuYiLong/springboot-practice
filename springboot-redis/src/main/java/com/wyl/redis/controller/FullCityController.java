@@ -30,15 +30,9 @@ public class FullCityController {
         return ResponseData.success();
     }
 
-    @ApiOperation(value = "缓存字符串")
-    @GetMapping(value = "cacheString")
-    public String cacheString(String areaCode) {
-        return fullCityService.cacheString(areaCode);
-    }
-
     @ApiOperation(value = "根据地区编码查询")
     @GetMapping(value = "getFullCity")
     public ResponseData<FullCityVo> getFullCity(String code) {
-        return ResponseData.successInstance(fullCityService.getFullCity(code));
+        return ResponseData.successInstance(fullCityService.getByCode(code));
     }
 }
