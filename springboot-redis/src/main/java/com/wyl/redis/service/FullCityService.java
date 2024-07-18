@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.redis.entity.FullCity;
 import com.wyl.redis.vo.FullCityVo;
 
+import java.util.List;
+
 /**
 * @Description 
 * @Author wuyilong
@@ -29,6 +31,12 @@ public interface FullCityService extends IService<FullCity> {
      * @return
      */
     FullCityVo getByFullName(String fullName);
+
+    /**
+     * 列表
+     * @return
+     */
+    List<FullCityVo> listFullCity();
 
 
 

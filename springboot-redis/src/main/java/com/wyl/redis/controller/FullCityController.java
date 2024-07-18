@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
 * @Description 
 * @Author wuyilong
@@ -34,5 +36,11 @@ public class FullCityController {
     @GetMapping(value = "getFullCity")
     public ResponseData<FullCityVo> getFullCity(String code) {
         return ResponseData.successInstance(fullCityService.getByCode(code));
+    }
+
+    @ApiOperation(value = "列表")
+    @GetMapping(value = "listFullCity")
+    public ResponseData<List<FullCityVo>> listFullCity() {
+        return ResponseData.successInstance(fullCityService.listFullCity());
     }
 }

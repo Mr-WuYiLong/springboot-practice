@@ -10,9 +10,11 @@ import com.wyl.redis.service.FullCityService;
 import com.wyl.redis.vo.FullCityVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * @Description 
@@ -70,5 +72,17 @@ public class FullCityServiceImpl extends ServiceImpl<FullCityMapper, FullCity> i
         FullCityVo fullCityVo = new FullCityVo();
         BeanUtil.copyProperties(fullCity,fullCityVo);
         return fullCityVo;
+    }
+
+    @Cacheable(value = "listFullCity",key = "'list'",unless = "#result == null ")
+    @Override
+    public List<FullCityVo> listFullCity() {
+        List<FullCity> fullCities = list();
+        List<FullCityVo> fullCityVos = fullCities.stream().map(m -> {
+            FullCityVo fullCityVo = new FullCityVo();
+            BeanUtil.copyProperties(m, fullCityVo);
+            return fullCityVo;
+        }).collect(Collectors.toList());
+        return fullCityVos;
     }
 }
