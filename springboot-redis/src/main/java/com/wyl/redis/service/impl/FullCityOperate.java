@@ -98,6 +98,24 @@ public class FullCityOperate implements DictionaryOperate {
     }
 
     @Override
+    public DictionaryBean getByCode(String key, String code) {
+        if(!redisTemplate.opsForHash().hasKey(key,code)) {
+            FullCityVo fullCityVo = fullCityService.getByCode(code);
+            if(fullCityVo != null) {
+                DictionaryBean dictionaryBean = new DictionaryBean();
+                dictionaryBean.setCode(fullCityVo.getCode());
+                dictionaryBean.setName(fullCityVo.getName());
+                dictionaryBean.setParentCode(fullCityVo.getParentCode());
+                dictionaryBean.setLevel(fullCityVo.getLevel());
+                redisTemplate.opsForHash().putIfAbsent(key,code,dictionaryBean);
+                return dictionaryBean;
+            }
+        }
+        DictionaryBean bean = (DictionaryBean) redisTemplate.opsForHash().get(key,code);
+        return bean;
+    }
+
+    @Override
     public String supportType() {
         return DictionaryConst.FULL_CITY;
     }

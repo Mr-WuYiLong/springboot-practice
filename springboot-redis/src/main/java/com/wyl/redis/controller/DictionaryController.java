@@ -1,6 +1,7 @@
 package com.wyl.redis.controller;
 
 import com.wyl.common.bean.ResponseData;
+import com.wyl.redis.bean.DictionaryBean;
 import com.wyl.redis.service.impl.DictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,5 +54,11 @@ public class DictionaryController {
     @GetMapping(value = "nameCodeMap")
     public ResponseData nameCodeMap(String key, String name) {
         return ResponseData.successInstance(dictionaryService.nameCodeMap(key, name));
+    }
+
+    @ApiOperation(value = "根据code获取实体")
+    @GetMapping(value = "getByCode")
+    public ResponseData<DictionaryBean> getByCode(String key, String code) {
+        return ResponseData.successInstance(dictionaryService.getByCode(key,code));
     }
 }

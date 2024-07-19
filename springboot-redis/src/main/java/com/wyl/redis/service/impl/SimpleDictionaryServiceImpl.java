@@ -76,4 +76,16 @@ public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMap
         return simpleDictionaryVos;
     }
 
+    @Override
+    public SimpleDictionaryVo getCodeByName(String name) {
+        LambdaQueryWrapper<SimpleDictionary> wrapper = Wrappers.lambdaQuery(SimpleDictionary.class);
+        wrapper.eq(SimpleDictionary::getName,name);
+        wrapper.last("limit 1");
+        SimpleDictionary simpleDictionary = getOne(wrapper);
+        if(simpleDictionary == null) {
+            return null;
+        }
+        SimpleDictionaryVo simpleDictionaryVo = BeanUtil.copyProperties(simpleDictionary, SimpleDictionaryVo.class);
+        return simpleDictionaryVo;
+    }
 }

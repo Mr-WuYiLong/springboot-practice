@@ -1,6 +1,7 @@
 package com.wyl.redis.service.impl;
 
 import cn.hutool.core.lang.tree.Tree;
+import com.wyl.redis.bean.DictionaryBean;
 import com.wyl.redis.constant.DictionaryConst;
 import com.wyl.redis.exception.BusinessException;
 import com.wyl.redis.service.DictionaryOperate;
@@ -66,6 +67,11 @@ public class DictionaryService implements ApplicationContextAware {
     public String nameCodeMap(String key, String name) {
         String code = buildDictionaryOperate(key).nameCodeMap(DictionaryConst.DIC+key+":nameCodeMap", name);
         return code;
+    }
+
+    public DictionaryBean getByCode(String key, String code) {
+        DictionaryBean bean = buildDictionaryOperate(key).getByCode(DictionaryConst.DIC + key + ":getByCode", code);
+        return bean;
     }
 
     public void refresh() {

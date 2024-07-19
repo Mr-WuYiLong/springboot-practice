@@ -100,7 +100,34 @@ public class SimpleDictionaryOperate implements DictionaryOperate {
 
     @Override
     public String nameCodeMap(String key, String name) {
-        return null;
+        if(!redisTemplate.opsForHash().hasKey(key,name)) {
+            SimpleDictionaryVo simpleDictionaryVo = simpleDictionaryService.getCodeByName(name);
+            if(simpleDictionaryVo != null) {
+                redisTemplate.opsForHash().putIfAbsent(key,name,simpleDictionaryVo.getId());
+                return simpleDictionaryVo.getCode();
+            }
+            return null;
+        }
+        String code = (String)redisTemplate.opsForHash().get(key,name);
+        return code;
+    }
+
+    @Override
+    public DictionaryBean getByCode(String key, String code) {
+        if(!redisTemplate.opsForHash().hasKey(key,code)) {
+            SimpleDictionary simpleDictionary = simpleDictionaryService.getById(code);
+            if(simpleDictionary != null) {
+                DictionaryBean bean = new DictionaryBean();
+                bean.setName(simpleDictionary.getName());
+                bean.setCode(simpleDictionary.getCode());
+                bean.setParentCode(simpleDictionary.getParentId().toString());
+                redisTemplate.opsForHash().putIfAbsent(key,code,simpleDictionary.getName());
+                return bean;
+            }
+        }
+
+        DictionaryBean bean = (DictionaryBean) redisTemplate.opsForHash().get(key,code);
+        return bean;
     }
 
     @Override
