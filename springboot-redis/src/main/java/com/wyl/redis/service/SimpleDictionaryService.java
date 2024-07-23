@@ -47,5 +47,11 @@ public interface SimpleDictionaryService extends IService<SimpleDictionary> {
      */
     SimpleDictionaryVo getCodeByName(String name);
 
+    /**
+     * 列表查询
+     * @return
+     */
+    List<SimpleDictionaryVo> listSimpleDictionary();
+
 
 }

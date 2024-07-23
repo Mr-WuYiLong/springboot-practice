@@ -74,7 +74,7 @@ public class FullCityServiceImpl extends ServiceImpl<FullCityMapper, FullCity> i
         return fullCityVo;
     }
 
-    @Cacheable(value = "listFullCity",key = "'list'",unless = "#result == null ")
+    @Cacheable(value = "listFullCity",key = "'list'",unless = "#result == null ",cacheManager = "redisCacheManager")
     @Override
     public List<FullCityVo> listFullCity() {
         List<FullCity> fullCities = list();

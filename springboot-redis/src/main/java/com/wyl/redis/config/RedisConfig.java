@@ -42,22 +42,7 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean
-    public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory){
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .computePrefixWith(cacheName -> cacheName + ":")
-                .entryTtl(Duration.ofMinutes(30))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer()));
-
-        Map<String, RedisCacheConfiguration> configMap = new HashMap();
-        configMap.put("redisCacheManager",redisCacheConfiguration);
-        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
-        RedisCacheManager redisCacheManager = new RedisCacheManager(redisCacheWriter, redisCacheConfiguration, configMap);
-        return redisCacheManager;
-    }
-
-    private Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer() {
+    public  static Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer() {
         Jackson2JsonRedisSerializer<Object> Jackson2Json = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);

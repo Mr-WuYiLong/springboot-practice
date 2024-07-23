@@ -9,6 +9,7 @@ import com.wyl.redis.entity.SimpleDictionary;
 import com.wyl.redis.mapper.SimpleDictionaryMapper;
 import com.wyl.redis.service.SimpleDictionaryService;
 import com.wyl.redis.vo.SimpleDictionaryVo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,5 +88,18 @@ public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMap
         }
         SimpleDictionaryVo simpleDictionaryVo = BeanUtil.copyProperties(simpleDictionary, SimpleDictionaryVo.class);
         return simpleDictionaryVo;
+    }
+
+
+    @Cacheable(value = "listSimpleDictionary",key = "'list'",unless = "#result == null",cacheManager = "caffeineCacheManager")
+    @Override
+    public List<SimpleDictionaryVo> listSimpleDictionary() {
+        List<SimpleDictionary> list = list();
+        List<SimpleDictionaryVo> simpleDictionaryVos = list.stream().map(m -> {
+            SimpleDictionaryVo simpleDictionaryVo = new SimpleDictionaryVo();
+            BeanUtil.copyProperties(m, simpleDictionaryVo);
+            return simpleDictionaryVo;
+        }).collect(Collectors.toList());
+        return simpleDictionaryVos;
     }
 }
