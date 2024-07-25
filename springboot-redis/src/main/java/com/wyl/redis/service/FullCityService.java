@@ -36,7 +36,19 @@ public interface FullCityService extends IService<FullCity> {
      * 列表
      * @return
      */
-    List<FullCityVo> listFullCity();
+    List<FullCityVo> listFullCityByRedis();
+
+    /**
+     * 列表
+     * @return
+     */
+    List<FullCityVo> listFullCityByCaffeine();
+
+    /**
+     * 列表
+     * @return
+     */
+    List<FullCityVo> listFullCityByEhCache();
 
 
 

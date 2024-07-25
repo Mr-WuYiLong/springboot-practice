@@ -74,9 +74,33 @@ public class FullCityServiceImpl extends ServiceImpl<FullCityMapper, FullCity> i
         return fullCityVo;
     }
 
-    @Cacheable(value = "listFullCity",key = "'list'",unless = "#result == null ",cacheManager = "redisCacheManager")
+    @Cacheable(value = "listFullCityByRedis",key = "'list'",unless = "#result == null ",cacheManager = "redisCacheManager")
     @Override
-    public List<FullCityVo> listFullCity() {
+    public List<FullCityVo> listFullCityByRedis() {
+        List<FullCity> fullCities = list();
+        List<FullCityVo> fullCityVos = fullCities.stream().map(m -> {
+            FullCityVo fullCityVo = new FullCityVo();
+            BeanUtil.copyProperties(m, fullCityVo);
+            return fullCityVo;
+        }).collect(Collectors.toList());
+        return fullCityVos;
+    }
+
+    @Cacheable(value = "listFullCityByCaffeine",key = "'list'",unless = "#result == null ",cacheManager = "caffeineCacheManager")
+    @Override
+    public List<FullCityVo> listFullCityByCaffeine() {
+        List<FullCity> fullCities = list();
+        List<FullCityVo> fullCityVos = fullCities.stream().map(m -> {
+            FullCityVo fullCityVo = new FullCityVo();
+            BeanUtil.copyProperties(m, fullCityVo);
+            return fullCityVo;
+        }).collect(Collectors.toList());
+        return fullCityVos;
+    }
+
+    @Cacheable(value = "ehCache",key = "'list'",unless = "#result == null ",cacheManager = "ehCacheCacheManager")
+    @Override
+    public List<FullCityVo> listFullCityByEhCache() {
         List<FullCity> fullCities = list();
         List<FullCityVo> fullCityVos = fullCities.stream().map(m -> {
             FullCityVo fullCityVo = new FullCityVo();

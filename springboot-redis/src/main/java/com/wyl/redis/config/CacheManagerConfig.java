@@ -1,8 +1,11 @@
 package com.wyl.redis.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
+import net.sf.ehcache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -22,6 +25,7 @@ import java.util.Map;
  * @Author WuYiLong
  * @Date 2024/7/23 16:15
  */
+@EnableCaching
 @Configuration
 public class CacheManagerConfig {
 
@@ -50,4 +54,15 @@ public class CacheManagerConfig {
                 .maximumSize(200));
         return caffeineCacheManager;
     }
+
+    @Bean
+    public CacheManager ehCacheCacheManager() {
+        EhCacheCacheManager ehCacheCacheManager = new EhCacheCacheManager();
+        net.sf.ehcache.CacheManager cacheManager = new net.sf.ehcache.CacheManager();
+        Cache cache = new Cache("ehCache",200,false,false,300L,180L);
+        cacheManager.addCacheIfAbsent(cache);
+        ehCacheCacheManager.setCacheManager(cacheManager);
+        return ehCacheCacheManager;
+    }
+
 }

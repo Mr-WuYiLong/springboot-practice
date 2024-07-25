@@ -9,6 +9,7 @@ import com.wyl.redis.entity.SimpleDictionary;
 import com.wyl.redis.mapper.SimpleDictionaryMapper;
 import com.wyl.redis.service.SimpleDictionaryService;
 import com.wyl.redis.vo.SimpleDictionaryVo;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 * @Author wuyilong
 * @Date 2024-07-11
 */
+@CacheConfig(cacheManager = "caffeineCacheManager",cacheNames = "cache")
 @Service
 public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMapper, SimpleDictionary> implements SimpleDictionaryService {
 
@@ -91,7 +93,7 @@ public class SimpleDictionaryServiceImpl extends ServiceImpl<SimpleDictionaryMap
     }
 
 
-    @Cacheable(value = "listSimpleDictionary",key = "'list'",unless = "#result == null",cacheManager = "caffeineCacheManager")
+    @Cacheable(value = "listSimpleDictionary",key = "'list'",unless = "#result == null")
     @Override
     public List<SimpleDictionaryVo> listSimpleDictionary() {
         List<SimpleDictionary> list = list();

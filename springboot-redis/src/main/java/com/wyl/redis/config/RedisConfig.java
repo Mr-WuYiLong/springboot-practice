@@ -27,7 +27,6 @@ import java.util.Map;
  * @Author WuYiLong
  * @Date 2024/7/4 10:46
  */
-@EnableCaching
 @Configuration
 public class RedisConfig {
 

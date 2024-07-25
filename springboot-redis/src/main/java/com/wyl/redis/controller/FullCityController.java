@@ -38,9 +38,21 @@ public class FullCityController {
         return ResponseData.successInstance(fullCityService.getByCode(code));
     }
 
-    @ApiOperation(value = "列表")
-    @GetMapping(value = "listFullCity")
-    public ResponseData<List<FullCityVo>> listFullCity() {
-        return ResponseData.successInstance(fullCityService.listFullCity());
+    @ApiOperation(value = "列表-基于redis的缓存")
+    @GetMapping(value = "listFullCityByRedis")
+    public ResponseData<List<FullCityVo>> listFullCityByRedis() {
+        return ResponseData.successInstance(fullCityService.listFullCityByRedis());
+    }
+
+    @ApiOperation(value = "列表-基于caffeine的缓存")
+    @GetMapping(value = "listFullCityByCaffeine")
+    public ResponseData<List<FullCityVo>> listFullCityByCaffeine() {
+        return ResponseData.successInstance(fullCityService.listFullCityByCaffeine());
+    }
+
+    @ApiOperation(value = "列表-基于EhCache的缓存")
+    @GetMapping(value = "listFullCityByEhCache")
+    public ResponseData<List<FullCityVo>> listFullCityByEhCache() {
+        return ResponseData.successInstance(fullCityService.listFullCityByEhCache());
     }
 }
