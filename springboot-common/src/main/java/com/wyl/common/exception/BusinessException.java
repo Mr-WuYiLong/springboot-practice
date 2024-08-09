@@ -1,4 +1,4 @@
-package com.wyl.redis.exception;
+package com.wyl.common.exception;
 
 /**
  * @Description

@@ -4,12 +4,10 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wyl.redis.bean.DictionaryBean;
 import com.wyl.redis.constant.DictionaryConst;
 import com.wyl.redis.entity.SimpleDictionary;
-import com.wyl.redis.exception.BusinessException;
+import com.wyl.common.exception.BusinessException;
 import com.wyl.redis.service.DictionaryOperate;
 import com.wyl.redis.service.SimpleDictionaryService;
 import com.wyl.redis.vo.SimpleDictionaryVo;
@@ -17,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

@@ -1,4 +1,4 @@
-package com.wyl.redis.exception;
+package com.wyl.common.exception;
 
 import com.wyl.common.bean.ResponseData;
 import org.springframework.web.bind.annotation.ExceptionHandler;

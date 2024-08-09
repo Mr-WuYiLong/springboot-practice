@@ -3,7 +3,7 @@ package com.wyl.redis.service.impl;
 import cn.hutool.core.lang.tree.Tree;
 import com.wyl.redis.bean.DictionaryBean;
 import com.wyl.redis.constant.DictionaryConst;
-import com.wyl.redis.exception.BusinessException;
+import com.wyl.common.exception.BusinessException;
 import com.wyl.redis.service.DictionaryOperate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
