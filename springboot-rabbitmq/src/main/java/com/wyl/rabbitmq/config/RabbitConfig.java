@@ -1,6 +1,7 @@
 package com.wyl.rabbitmq.config;
 
 import com.wyl.rabbitmq.example.SixModeExample;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,13 +16,11 @@ import org.springframework.context.annotation.Configuration;
  * @Author WuYiLong
  * @Date 2024/8/2 14:43
  */
+@Slf4j
 @Configuration
 public class RabbitConfig {
 
-    @Bean
-    public Queue replyQueue() {
-        return QueueBuilder.durable(SixModeExample.REPLY_QUEUE).build();
-    }
+
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate();
@@ -29,10 +28,10 @@ public class RabbitConfig {
         rabbitTemplate.setConfirmCallback(new DefaultConfirmCallback());
         rabbitTemplate.setReturnsCallback(new DefaultReturnsCallback());
         rabbitTemplate.setMandatory(true); //设置为true，才会触发DefaultReturnsCallback方法
-        rabbitTemplate.setChannelTransacted(true); // 支持事务
+//        rabbitTemplate.setChannelTransacted(true); // 支持事务
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());  // 消息转换器，支持转换对象
-        rabbitTemplate.setReplyAddress(SixModeExample.REPLY_QUEUE);
-        rabbitTemplate.setExchange(SixModeExample.RPC_EXCHANGE);
+//        rabbitTemplate.setReplyAddress(SixModeExample.REPLY_QUEUE);
+//        rabbitTemplate.setExchange(SixModeExample.RPC_EXCHANGE);
         return rabbitTemplate;
     }
 
@@ -46,6 +45,21 @@ public class RabbitConfig {
         return new RabbitTransactionManager(connectionFactory);
     }
 
+    @Bean
+    public Queue rpcQueue() {
+        return QueueBuilder.durable(SixModeExample.RPC_QUEUE).build();
+    }
+
+    @Bean
+    public Exchange rpcExchange() {
+        return ExchangeBuilder.directExchange(SixModeExample.RPC_EXCHANGE).build();
+    }
+
+    @Bean
+    public Binding rpcBinding() {
+        return BindingBuilder.bind(rpcQueue()).to(rpcExchange()).with(SixModeExample.ROUTING_KEY).noargs();
+    }
+
     /**
      * 实现Rpc 监听器
      * @param connectionFactory
@@ -55,8 +69,10 @@ public class RabbitConfig {
     public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(SixModeExample.REPLY_QUEUE);
-        container.setMessageListener(rabbitTemplate(connectionFactory));
+        container.setQueueNames(SixModeExample.RPC_QUEUE);
+        container.setMessageListener(t->{
+           log.info("接收到*{}*队列的消息：{}",t.getMessageProperties().getConsumerQueue(),t.getBody());
+        });
         return container;
     }
 
