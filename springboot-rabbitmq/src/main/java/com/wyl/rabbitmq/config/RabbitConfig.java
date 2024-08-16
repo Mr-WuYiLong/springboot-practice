@@ -1,10 +1,12 @@
 package com.wyl.rabbitmq.config;
 
-import com.rabbitmq.client.AMQP;
+import com.wyl.rabbitmq.example.SixModeExample;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.config.BindingFactoryBean;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,13 +19,45 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitConfig {
 
     @Bean
+    public Queue replyQueue() {
+        return QueueBuilder.durable(SixModeExample.REPLY_QUEUE).build();
+    }
+    @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate();
         rabbitTemplate.setConnectionFactory(connectionFactory);
         rabbitTemplate.setConfirmCallback(new DefaultConfirmCallback());
         rabbitTemplate.setReturnsCallback(new DefaultReturnsCallback());
         rabbitTemplate.setMandatory(true); //设置为true，才会触发DefaultReturnsCallback方法
+        rabbitTemplate.setChannelTransacted(true); // 支持事务
+        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());  // 消息转换器，支持转换对象
+        rabbitTemplate.setReplyAddress(SixModeExample.REPLY_QUEUE);
+        rabbitTemplate.setExchange(SixModeExample.RPC_EXCHANGE);
         return rabbitTemplate;
+    }
+
+    /**
+     * 事务模式和确认模式不能同时开启
+     * @param connectionFactory
+     * @return
+     */
+    @Bean
+    public RabbitTransactionManager rabbitTransactionManager(ConnectionFactory connectionFactory) {
+        return new RabbitTransactionManager(connectionFactory);
+    }
+
+    /**
+     * 实现Rpc 监听器
+     * @param connectionFactory
+     * @return
+     */
+    @Bean
+    public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory);
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(SixModeExample.REPLY_QUEUE);
+        container.setMessageListener(rabbitTemplate(connectionFactory));
+        return container;
     }
 
     @Bean
@@ -98,6 +132,39 @@ public class RabbitConfig {
     public Binding binding() {
         Binding binding = BindingBuilder.bind(simpleQueue()).to(topicExchange()).with("*.top").noargs();
         return binding;
+    }
+
+
+    /*************************************测试死信队列********************************************************/
+
+    @Bean
+    public Queue sendQueue() {
+        return QueueBuilder.durable("sendQueue").ttl(5000).deadLetterExchange("deadExchange").deadLetterRoutingKey("dead-key").build();
+    }
+
+    @Bean
+    public Exchange sendExchange(){
+        return ExchangeBuilder.directExchange("sendExchange").build();
+    }
+
+    @Bean
+    public Binding sendBinding() {
+        return BindingBuilder.bind(sendQueue()).to(sendExchange()).with("send-key").noargs();
+    }
+
+    @Bean
+    public Queue deadQueue() {
+        return QueueBuilder.durable("deadQueue").build();
+    }
+
+    @Bean
+    public Exchange deadExchange() {
+        return ExchangeBuilder.directExchange("deadExchange").build();
+    }
+
+    @Bean
+    public Binding  deadBinding() {
+        return BindingBuilder.bind(deadQueue()).to(deadExchange()).with("dead-key").noargs();
     }
 
 

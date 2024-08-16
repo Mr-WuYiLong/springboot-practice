@@ -8,9 +8,11 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description
@@ -35,9 +37,12 @@ public class ProducerService {
         rabbitTemplate.convertAndSend("fanout","",message,correlationData);
     }
 
-    public void moreQueue1(String message) {
-        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
-        rabbitTemplate.convertAndSend("direct","direct-key-1",message,correlationData);
+    @Transactional(rollbackFor = Exception.class)
+    public void moreQueue1(String message) throws InterruptedException {
+
+        rabbitTemplate.convertAndSend("direct","direct-key-1",message);
+        log.info("*********消息已发送**********");
+        TimeUnit.SECONDS.sleep(10);
     }
 
     public void moreQueue2(String message) {
@@ -50,15 +55,22 @@ public class ProducerService {
         rabbitTemplate.convertAndSend("topic","a.top",message,correlationData);
     }
 
-    @Scheduled(cron = "0/5 * * * * ?")
-    public void scheduleTask(){
-        for (int i = 0;i<100;i++) {
+    public void sendQueue(String message) {
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        rabbitTemplate.convertAndSend("sendExchange","send-key",message,correlationData);
+    }
+
+//    @Scheduled(cron = "0/5 * * * * ?")
+    public void scheduleTask() throws InterruptedException {
+//        for (int i = 0;i<100;i++) {
 //            simpleMessage("hello,world"+i);
 //            moreQueue("moreQueue"+i);
 //            moreQueue1("moreQueue1"+i);
 //            moreQueue2("moreQueue2"+i);
-            sendTopicMessage("topic"+i);
-        }
+//            sendTopicMessage("topic"+i);
+//            sendQueue("hello");
+//        }
+        moreQueue1("事务-hello");
     }
 
 

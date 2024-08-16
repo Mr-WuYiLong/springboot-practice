@@ -42,6 +42,12 @@ public class ConsumerService {
     @RabbitListener(queues = {"simple-queue"})
     public void simpleMessage4(String msg, Channel channel, Message message) throws IOException {
         log.info("simpleMessage4-发送的消息->{}",msg);
+//        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+    }
+
+    @RabbitListener(queues = {"deadQueue"})
+    public void listenDeadQueue(String data, Channel channel, Message message) throws IOException {
+        log.info("从死信队列里取出消息->{}",data);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
     }
 
