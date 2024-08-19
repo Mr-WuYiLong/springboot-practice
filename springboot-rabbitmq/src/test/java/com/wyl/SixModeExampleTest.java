@@ -1,15 +1,11 @@
 package com.wyl;
 
-import com.wyl.rabbitmq.example.SixModeExample;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.UUID;
 
 /**
  * @Description
@@ -25,8 +21,11 @@ public class SixModeExampleTest {
 
     @Test
     public void testSixMode() {
-        CorrelationData correlationData = new CorrelationData();
-        correlationData.setId(UUID.randomUUID().toString());
-        rabbitTemplate.convertSendAndReceive(SixModeExample.RPC_EXCHANGE,SixModeExample.ROUTING_KEY,"hello world,rpc",correlationData);
+//        String msg = "hello,world";
+//        Message message = MessageBuilder.withBody(msg.getBytes(StandardCharsets.UTF_8)).build();
+//
+//        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+//        Message message1 = rabbitTemplate.sendAndReceive(SixModeExample.EXCHANGE, SixModeExample.RPC_ROUTING_KEY, message);
+//        System.out.println(message1.getBody());
     }
 }

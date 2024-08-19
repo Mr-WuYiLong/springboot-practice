@@ -12,6 +12,7 @@
         <module>springboot-redis</module>
         <module>springboot-common</module>
         <module>springboot-rabbitmq</module>
+        <module>springboot-rabbitmq-client</module>
     </modules>
 
     <properties>
