@@ -15,7 +15,7 @@ public class DefaultConfirmCallback implements RabbitTemplate.ConfirmCallback {
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         log.info("*****是否成功处理消息->{}",ack);
-        log.info("correlationData->{}",correlationData.getId());
+        log.info("correlationData->{}",correlationData != null?correlationData.getId():null);
         log.info("造成的情况->{}",cause);
     }
 }

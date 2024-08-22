@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @Description
+ * @Description rpc模式服务器端
  * @Author WuYiLong
  * @Date 2024/8/16 14:31
  */
@@ -30,7 +30,7 @@ public class SixModeExample {
     @RabbitListener(queues = RabbitRpcConfig.RPC_QUEUE)
     public void consumer(Channel channel,Message message) throws IOException {
         log.info("consumer->{}", StringUtils.toEncodedString(message.getBody(), StandardCharsets.UTF_8));
-        Message build = MessageBuilder.withBody("收到消息了".getBytes(StandardCharsets.UTF_8)).build();
+        Message build = MessageBuilder.withBody("已收到消息了".getBytes(StandardCharsets.UTF_8)).build();
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         String correlationId = message.getMessageProperties().getCorrelationId();
         CorrelationData correlationData = new CorrelationData(correlationId);

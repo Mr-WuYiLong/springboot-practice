@@ -11,7 +11,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 /**
- * @Description
+ * @Description 5. Topics
  * @Author WuYiLong
  * @Date 2024/8/16 10:39
  */

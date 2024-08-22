@@ -1,5 +1,6 @@
 package com.wyl.rabbitmq.config;
 
+import com.wyl.rabbitmq.example.DeadLetterQueueExample;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -41,114 +42,35 @@ public class RabbitConfig {
     }
 
 
+    /********************************测试死信队列****************************************/
 
     @Bean
-    public Queue simpleQueue() {
-        Queue build = QueueBuilder.durable("simple-queue").build();
-        return build;
+    public Queue ordinaryQueue() {
+        return QueueBuilder.durable(DeadLetterQueueExample.ORDINARY_QUEUE).ttl(5000).deadLetterExchange(DeadLetterQueueExample.DEAD_LETTER_EXCHANGE).deadLetterRoutingKey(DeadLetterQueueExample.DEAD_LETTER_ROUTING_KEY).build();
     }
 
     @Bean
-    public Exchange directExchange() {
-        Exchange build = ExchangeBuilder.directExchange("direct").durable(true).build();
-        return build;
+    public Exchange ordinaryExchange() {
+        return ExchangeBuilder.directExchange(DeadLetterQueueExample.ORDINARY_EXCHANGE).durable(true).build();
     }
 
     @Bean
-    public Binding bindingDirectExchange() {
-        Binding simple = BindingBuilder.bind(simpleQueue()).to(directExchange()).with("direct-key-1").noargs();
-        return simple;
+    public Binding ordinaryBinding() {
+        return BindingBuilder.bind(ordinaryQueue()).to(ordinaryExchange()).with(DeadLetterQueueExample.ORDINARY_ROUTING_KEY).noargs();
     }
 
     @Bean
-    public Queue fanoutQueue1() {
-        Queue build = QueueBuilder.durable("fanoutQueue1").build();
-        return build;
+    public Queue deadLetterQueue() {
+        return QueueBuilder.durable(DeadLetterQueueExample.DEAD_LETTER_QUEUE).build();
     }
 
     @Bean
-    public Queue fanoutQueue2() {
-        Queue build = QueueBuilder.durable("fanoutQueue2").build();
-        return build;
+    public Exchange deadLetterExchange() {
+        return ExchangeBuilder.directExchange(DeadLetterQueueExample.DEAD_LETTER_EXCHANGE).durable(true).build();
     }
 
     @Bean
-    public Queue fanoutQueue3() {
-        Queue build = QueueBuilder.durable("fanoutQueue3").build();
-        return build;
+    public Binding deadLetterBinding() {
+        return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange()).with(DeadLetterQueueExample.DEAD_LETTER_ROUTING_KEY).noargs();
     }
-
-
-    @Bean
-    public Exchange fanoutExchange() {
-        Exchange build = ExchangeBuilder.fanoutExchange("fanout").durable(true).build();
-        return build;
-    }
-
-    @Bean
-    public Binding bindingFanoutExchange1() {
-        Binding binding = BindingBuilder.bind(fanoutQueue1()).to(fanoutExchange()).with("").noargs();
-        return binding;
-    }
-
-    @Bean
-    public Binding bindingFanoutExchange2() {
-        Binding binding = BindingBuilder.bind(fanoutQueue2()).to(fanoutExchange()).with("").noargs();
-        return binding;
-    }
-
-    @Bean
-    public Binding bindingFanoutExchange3() {
-        Binding binding = BindingBuilder.bind(fanoutQueue3()).to(fanoutExchange()).with("").noargs();
-        return binding;
-    }
-
-    @Bean
-    public Exchange topicExchange() {
-        Exchange topic = ExchangeBuilder.topicExchange("topic").durable(true).build();
-        return topic;
-    }
-
-
-    @Bean
-    public Binding binding() {
-        Binding binding = BindingBuilder.bind(simpleQueue()).to(topicExchange()).with("*.top").noargs();
-        return binding;
-    }
-
-
-    /*************************************测试死信队列********************************************************/
-
-    @Bean
-    public Queue sendQueue() {
-        return QueueBuilder.durable("sendQueue").ttl(5000).deadLetterExchange("deadExchange").deadLetterRoutingKey("dead-key").build();
-    }
-
-    @Bean
-    public Exchange sendExchange(){
-        return ExchangeBuilder.directExchange("sendExchange").build();
-    }
-
-    @Bean
-    public Binding sendBinding() {
-        return BindingBuilder.bind(sendQueue()).to(sendExchange()).with("send-key").noargs();
-    }
-
-    @Bean
-    public Queue deadQueue() {
-        return QueueBuilder.durable("deadQueue").build();
-    }
-
-    @Bean
-    public Exchange deadExchange() {
-        return ExchangeBuilder.directExchange("deadExchange").build();
-    }
-
-    @Bean
-    public Binding  deadBinding() {
-        return BindingBuilder.bind(deadQueue()).to(deadExchange()).with("dead-key").noargs();
-    }
-
-
-
 }

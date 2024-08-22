@@ -8,13 +8,13 @@ spring:
   rabbitmq:
     host: localhost
     port: 5675
-    publisher-confirm-type: correlated
-    publisher-returns: true
+    publisher-confirm-type: correlated # 开启确认模式
+    publisher-returns: true # 开启退回模式
     listener:
       simple:
-        acknowledge-mode: manual
-        concurrency: 10
-        max-concurrency: 20
+        acknowledge-mode: manual # 手动确认
+        concurrency: 10 # 并发数
+        max-concurrency: 20 # 最大并发数
 
 
   jpa:

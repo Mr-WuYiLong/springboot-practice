@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2024/8/19 17:20
  */
 @Configuration
-public class RabbitConfig {
+public class RabbitClientConfig {
 
     @Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory) {

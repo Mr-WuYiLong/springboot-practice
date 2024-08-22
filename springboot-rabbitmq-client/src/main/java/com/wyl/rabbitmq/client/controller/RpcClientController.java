@@ -30,7 +30,16 @@ public class RpcClientController {
     @GetMapping(value = "sendMessage")
     public void sendMessage(String msg) {
         Message message = MessageBuilder.withBody(msg.getBytes(StandardCharsets.UTF_8)).build();
-        Message message1 = rabbitTemplate.sendAndReceive(RabbitRpcConfig.EXCHANGE, RabbitRpcConfig.RPC_ROUTING_KEY, message);
-        System.out.println(message1.getBody());
+        Message result = rabbitTemplate.sendAndReceive(RabbitRpcConfig.EXCHANGE, RabbitRpcConfig.RPC_ROUTING_KEY, message);
+        if(result != null) {
+            String correlationId = message.getMessageProperties().getCorrelationId();
+            String returnCorrelationId = result.getMessageProperties().getHeader("spring_returned_message_correlation");
+            if(correlationId.equals(returnCorrelationId)) {
+                System.out.println("已确认该消息由该客户端发送");
+            }
+
+            System.out.println(new String(result.getBody()));
+
+        }
     }
 }
