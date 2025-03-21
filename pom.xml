@@ -13,6 +13,7 @@
         <module>springboot-common</module>
         <module>springboot-rabbitmq</module>
         <module>springboot-rabbitmq-client</module>
+        <module>springboot-mybatis</module>
     </modules>
 
     <properties>

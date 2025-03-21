@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyl.mybatis.mapper.AdmissionListMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.wyl.mybatis.entity.AdmissionList">
+                    <id column="id" property="id"/>
+                    <result column="university" property="university"/>
+                    <result column="examinee_no" property="examineeNo"/>
+                    <result column="name" property="name"/>
+                    <result column="department" property="department"/>
+                    <result column="professional_code" property="professionalCode"/>
+                    <result column="initial_exam_score" property="initialExamScore"/>
+                    <result column="interview_result_score" property="interviewResultScore"/>
+                    <result column="total_score" property="totalScore"/>
+                    <result column="professional_name" property="professionalName"/>
+                    <result column="study_type" property="studyType"/>
+                    <result column="remark" property="remark"/>
+                    <result column="create_time" property="createTime"/>
+                    <result column="year" property="year"/>
+                    <result column="research_direction" property="researchDirection"/>
+                    <result column="degree_type" property="degreeType"/>
+                    <result column="update_time" property="updateTime"/>
+                    <result column="deleted" property="deleted"/>
+
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+            id, university, examinee_no, name, department, professional_code, initial_exam_score, interview_result_score, total_score, professional_name, study_type,
+              remark, create_time, year, research_direction, degree_type,update_time,deleted
+        </sql>
+
+
+    <insert id="insert" parameterType="com.wyl.mybatis.entity.AdmissionList">
+        insert into admission_list(
+        id, university, examinee_no, name, department, professional_code, initial_exam_score, interview_result_score, total_score, professional_name, study_type, remark, create_time, year, research_direction,
+                                   degree_type,update_time,deleted
+        )
+        values (
+            #{id},
+            #{university},
+            #{examineeNo},
+            #{name},
+            #{department},
+            #{professionalCode},
+            #{initialExamScore},
+            #{interviewResultScore},
+            #{totalScore},
+            #{professionalName},
+            #{studyType},
+            #{remark},
+            #{createTime},
+            #{year},
+            #{researchDirection},
+            #{degreeType},
+            #{updateTime},
+            #{deleted}
+        )
+    </insert>
+
+    <select id="selectPage" resultType="com.wyl.mybatis.entity.AdmissionList">
+        SELECT * FROM admission_list order by create_time desc
+    </select>
+
+
+    <delete id="deleteByIds">
+        delete from admission_list
+        <where>
+            id in
+            <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+
+</mapper>
