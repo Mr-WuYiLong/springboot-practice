@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @ApiModel(value = "AdmissionListDto对象", description = "录取名单")
 public class AdmissionListDto implements Serializable {
 
+    @ApiModelProperty(value = "id")
+    private Long id;
     @ApiModelProperty(value = "大学")
     private String university;
 

@@ -1,27 +1,24 @@
 package com.wyl.mybatis.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.lang.generator.UUIDGenerator;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.IdUtil;
-import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.wyl.mybatis.common.CommonPage;
 import com.wyl.mybatis.dto.AdmissionListDto;
 import com.wyl.mybatis.entity.AdmissionList;
+import com.wyl.mybatis.exception.BusinessException;
 import com.wyl.mybatis.mapper.AdmissionListMapper;
 import com.wyl.mybatis.req.AdmissionListReq;
 import com.wyl.mybatis.service.AdmissionListService;
 import com.wyl.mybatis.vo.AdmissionListVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -69,16 +66,30 @@ public class AdmissionListServiceImpl implements AdmissionListService {
 
     @Override
     public Long save(AdmissionListDto admissionListDto) {
-        AdmissionList admissionList = new AdmissionList();
-        beforeSave(admissionList, admissionListDto);
-        admissionListMapper.insert(admissionList);
-        return admissionList.getId();
+
+        if(admissionListDto.getId() != null){
+            AdmissionList admissionList = admissionListMapper.selectById(admissionListDto.getId());
+            if(admissionList == null){
+                throw new BusinessException("数据不存在");
+            }
+            CopyOptions copyOptions = new CopyOptions();
+            copyOptions.setIgnoreNullValue(true);
+            BeanUtil.copyProperties(admissionListDto, admissionList,copyOptions);
+            admissionList.setUpdateTime(new Date());
+            admissionListMapper.updateById(admissionList);
+            return admissionList.getId();
+        }else{
+            AdmissionList admissionList = new AdmissionList();
+            beforeSave(admissionList, admissionListDto);
+            admissionListMapper.insert(admissionList);
+            return admissionList.getId();
+        }
     }
 
     public void beforeSave(AdmissionList entity,AdmissionListDto admissionListDto) {
         BeanUtil.copyProperties(admissionListDto, entity);
-        entity.setCreateTime(LocalDateTime.now());
-        entity.setUpdateTime(LocalDateTime.now());
+        entity.setCreateTime(new Date());
+        entity.setUpdateTime(new Date());
         entity.setDeleted(0);
         entity.setId(IdUtil.getSnowflakeNextId());
     }

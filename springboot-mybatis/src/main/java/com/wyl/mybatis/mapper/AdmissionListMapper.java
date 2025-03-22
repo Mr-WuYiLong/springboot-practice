@@ -28,6 +28,7 @@ public interface AdmissionListMapper {
      * @param id
      * @return
      */
+    @ResultMap(value = "BaseResultMap")
     @Select("select * from admission_list where id = #{id}")
     AdmissionList selectById(@Param("id") Serializable id);
 
@@ -49,6 +50,12 @@ public interface AdmissionListMapper {
      * @param admissionList
      */
     void insert(AdmissionList admissionList);
+
+    /**
+     * 更新
+     * @param admissionList
+     */
+    void updateById(@Param("item") AdmissionList admissionList);
 
 
 

@@ -3,6 +3,7 @@ package com.wyl.mybatis.entity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @Description 录取名单
@@ -77,7 +78,7 @@ public class AdmissionList{
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 年份
@@ -97,7 +98,7 @@ public class AdmissionList{
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 是否删除？0否，1是

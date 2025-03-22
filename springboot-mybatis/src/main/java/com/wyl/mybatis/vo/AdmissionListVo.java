@@ -1,11 +1,13 @@
 package com.wyl.mybatis.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
 * @Description 录取名单
@@ -53,8 +55,9 @@ private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "备注")
     private String remark;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "年份")
     private Integer year;
@@ -64,4 +67,11 @@ private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "学位类型")
     private String degreeType;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "更新时间")
+    private Date updateTime;
+
+    @ApiModelProperty(value = "是否删除？0否，1是")
+    private Integer deleted;
 }

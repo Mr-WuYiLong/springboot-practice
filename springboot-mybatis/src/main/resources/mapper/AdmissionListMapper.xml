@@ -34,8 +34,7 @@
 
     <insert id="insert" parameterType="com.wyl.mybatis.entity.AdmissionList">
         insert into admission_list(
-        id, university, examinee_no, name, department, professional_code, initial_exam_score, interview_result_score, total_score, professional_name, study_type, remark, create_time, year, research_direction,
-                                   degree_type,update_time,deleted
+        <include refid="Base_Column_List" />
         )
         values (
             #{id},
@@ -59,8 +58,8 @@
         )
     </insert>
 
-    <select id="selectPage" resultType="com.wyl.mybatis.entity.AdmissionList">
-        SELECT * FROM admission_list order by create_time desc
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT  <include refid="Base_Column_List" /> FROM admission_list order by update_time desc
     </select>
 
 
@@ -74,5 +73,25 @@
         </where>
     </delete>
 
-
+    <update id="updateById">
+        update admission_list set
+        university = #{item.university},
+        examinee_no = #{item.examineeNo},
+        name = #{item.name},
+        department = #{item.department},
+        professional_code = #{item.professionalCode},
+        initial_exam_score = #{item.initialExamScore},
+        interview_result_score = #{item.interviewResultScore},
+        total_score = #{item.totalScore},
+        professional_name = #{item.professionalName},
+        study_type = #{item.studyType},
+        remark = #{item.remark},
+        create_time = #{item.createTime},
+        year = #{item.year},
+        research_direction = #{item.researchDirection},
+        degree_type = #{item.degreeType},
+        update_time = #{item.updateTime},
+        deleted = #{item.deleted}
+        where id = #{item.id}
+    </update>
 </mapper>
